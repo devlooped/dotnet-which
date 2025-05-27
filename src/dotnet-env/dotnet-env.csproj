@@ -5,13 +5,13 @@
     <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>Devlooped</RootNamespace>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
-    <PackageId>dotnet-which</PackageId>
+    <PackageId>dotnet-env</PackageId>
     <Description>
       Discover which .NET versions are in use in the current repository and optionally 
       emit a JSON file for use in automatic CI .NET environment setup.
     </Description>
-    <ToolCommandName>dotnet-which</ToolCommandName>
-    <ToolHelpName>dotnet which</ToolHelpName>
+    <ToolCommandName>dotnet-env</ToolCommandName>
+    <ToolHelpName>dotnet env</ToolHelpName>
     <PackageTags>dotnet-tool setup</PackageTags>
     <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
 
