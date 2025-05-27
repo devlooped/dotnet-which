@@ -7,10 +7,11 @@
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <PackageId>dotnet-env</PackageId>
     <Description>
-      Automatically discover used .NET versions in the current repository and
-      emit a JSON file for use in automatic .NET environment setup in CI.
+      Discover used .NET versions in the current repository and emit a JSON file for use
+      in automatic CI .NET environment setup.
     </Description>
     <ToolCommandName>dotnet-env</ToolCommandName>
+    <ToolHelpName>dotnet env</ToolHelpName>
     <PackageTags>dotnet-tool setup</PackageTags>
     <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
 
@@ -38,7 +39,52 @@
   </ItemGroup>
 
   <ItemGroup>
+    <CommandHelp Include="init" />
+    <CommandHelp Include="workflow" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="dotnet-env.yml" Kind="text" />
   </ItemGroup>
+
+  <Target Name="RenderHelp" AfterTargets="Build" Condition="$(NoHelp) != 'true' and $(DesignTimeBuild) != 'true' and '$(OS)' == 'Windows_NT'">
+    <PropertyGroup>
+      <Cli>$(TargetDir)$(TargetName).exe</Cli>
+      <HelpCommand>"$(Cli)" --help --unattended</HelpCommand>
+    </PropertyGroup>
+
+    <WriteLinesToFile Lines="```shell" Overwrite="true" Encoding="UTF-8" File="Docs/help.md" />
+    <WriteLinesToFile Lines="&gt; $(ToolHelpName) --help" Overwrite="false" Encoding="UTF-8" File="Docs/help.md" />
+
+    <Exec Command="$(HelpCommand) &gt;&gt; Docs/help.md" StdOutEncoding="UTF-8" EnvironmentVariables="NO_COLOR=true" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="MSBuildLastExitCode" />
+    </Exec>
+    <!-- Run again if it failed, but without the output redirect, for troubleshooting via build logs -->
+    <Exec Condition="$(MSBuildLastExitCode) != '0'" Command="$(HelpCommand)" StdOutEncoding="UTF-8" EnvironmentVariables="NO_COLOR=true" />
+    <Error Text="Failed to get help output." Condition="'$(MSBuildLastExitCode)' != '0'" />
+
+    <WriteLinesToFile Lines="```" Overwrite="false" Encoding="UTF-8" File="Docs/help.md" />
+  </Target>
+
+  <Target Name="RenderCommandHelp" AfterTargets="Build" Inputs="@(CommandHelp)" Outputs="|%(CommandHelp.Identity)|" Condition="$(NoHelp) != 'true' and $(DesignTimeBuild) != 'true' and '$(OS)' == 'Windows_NT'">
+    <PropertyGroup>
+      <CommandHelp>%(CommandHelp.Identity)</CommandHelp>
+      <Cli>$(TargetDir)$(TargetName).exe</Cli>
+      <HelpCommand>"$(Cli)" $(CommandHelp) --help --unattended</HelpCommand>
+      <HelpFile>Docs/$(CommandHelp.Replace(' ', '-')).md</HelpFile>
+    </PropertyGroup>
+
+    <WriteLinesToFile Lines="```shell" Overwrite="true" Encoding="UTF-8" File="$(HelpFile)" />
+    <WriteLinesToFile Lines="&gt; $(ToolHelpName) $(CommandHelp) --help" Overwrite="false" Encoding="UTF-8" File="$(HelpFile)" />
+
+    <Exec Command="$(HelpCommand) &gt;&gt; $(HelpFile)" StdOutEncoding="UTF-8" EnvironmentVariables="NO_COLOR=true" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="MSBuildLastExitCode" />
+    </Exec>
+    <!-- Run again if it failed, but without the output redirect, for troubleshooting via build logs -->
+    <Exec Condition="$(MSBuildLastExitCode) != '0'" Command="$(HelpCommand)" StdOutEncoding="UTF-8" EnvironmentVariables="NO_COLOR=true" />
+    <Error Text="Failed to get help output." Condition="'$(MSBuildLastExitCode)' != '0'" />
+
+    <WriteLinesToFile Lines="```" Overwrite="false" Encoding="UTF-8" File="$(HelpFile)" />
+  </Target>
 
 </Project>

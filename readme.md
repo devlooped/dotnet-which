@@ -13,5 +13,13 @@ emit a JSON file with them, for use in automatic .NET environment setup
 using [dotnet-env](https://github.com/marketplace/actions/dotnet-env) GitHub 
 action.
 
+## Usage
+
+<!-- include src/dotnet-env/Docs/help.md -->
+
+<!-- include src/dotnet-env/Docs/init.md -->
+
+<!-- include src/dotnet-env/Docs/workflow.md -->
+
 <!-- #content -->
 <!-- include https://github.com/devlooped/sponsors/raw/main/footer.md -->
