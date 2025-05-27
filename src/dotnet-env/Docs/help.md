@@ -1,10 +1,10 @@
 ﻿```shell
-> dotnet which --help
+> dotnet env --help
 DESCRIPTION:
 Discovers .NET versions used in the current directory recursively
 
 USAGE:
-    dotnet which [OPTIONS] [COMMAND]
+    dotnet env [OPTIONS] [COMMAND]
 
 OPTIONS:
     -h, --help             Prints help information                              

@@ -1,10 +1,10 @@
 ﻿```shell
-> dotnet which workflow --help
+> dotnet env workflow --help
 DESCRIPTION:
 Creates a GitHub Actions workflow file for dotnet-env
 
 USAGE:
-    dotnet which workflow [file] [OPTIONS]
+    dotnet env workflow [file] [OPTIONS]
 
 ARGUMENTS:
     [file]    Path to the versions file to use in the workflow. Defaults to     
