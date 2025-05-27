@@ -3,17 +3,42 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
-    <RootNamespace>dotnet_env</RootNamespace>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <RootNamespace>Devlooped</RootNamespace>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <PackageId>dotnet-env</PackageId>
+    <Description>
+      Automatically discover used .NET versions in the current repository and
+      emit a JSON file for use in automatic .NET environment setup in CI.
+    </Description>
+    <ToolCommandName>dotnet-env</ToolCommandName>
+    <PackageTags>dotnet-tool setup</PackageTags>
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+
+    <BuildDate>$([System.DateTime]::Now.ToString("yyyy-MM-dd"))</BuildDate>
+    <BuildRef>$(GITHUB_REF_NAME)</BuildRef>
+
+    <!-- Run app with -p:NoHelp=true to avoid the help generation which might conflict/error and prevent debugging -->
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NuGetizer" Version="1.2.4">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="SpectreConsoleLogger" Version="1.0.2" />
+    <PackageReference Include="CliWrap" Version="3.8.2" />
+    <PackageReference Include="NuGetizer" Version="1.2.4" />
+    <PackageReference Include="NuGet.Protocol" Version="6.14.0" />
+    <PackageReference Include="Spectre.Console.Cli" Version="0.50.0" />
+    <PackageReference Include="ThisAssembly" Version="2.0.14" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectProperty Include="ToolCommandName" />
+    <ProjectProperty Include="BuildDate" />
+    <ProjectProperty Include="BuildRef" />
+    <ProjectProperty Include="PackageId" />
+    <ProjectProperty Include="PackageVersion" />
+    <ProjectProperty Include="SLEET_FEED_URL" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="dotnet-env.yml" Kind="text" />
   </ItemGroup>
 
 </Project>

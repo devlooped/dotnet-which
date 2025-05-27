@@ -135,3 +135,9 @@
 
 	etag = da7c0104131bd474b52fc9bc9f9bda6470e24ae38d4fb9f5c4f719bc01370ab5
 	weak
+[file "src/dotnet-env/DotnetMuxer.cs"]
+	url = https://github.com/devlooped/catbag/blob/main/System/DotnetMuxer.cs
+	sha = b8556d40c2e669ae6455fa19948133e1e3c87306
+
+	etag = 6f3264c622a89bc84836de0b1755be60967ffb224c4a28dc0b6744448ff1e5b4
+	weak

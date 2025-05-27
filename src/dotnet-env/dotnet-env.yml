@@ -1,0 +1,35 @@
+﻿name: dotnet-env
+on:
+  workflow_dispatch:
+  push:
+    branches: 
+      - main
+    paths:
+      - '**/*.*proj'
+
+jobs:
+  which-dotnet:
+    runs-on: ubuntu-latest 
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: 🤘 checkout
+        uses: actions/checkout@v4
+
+      - name: 🤌 dotnet
+        uses: devlooped/actions-which-dotnet@v1
+        with:
+          versions: ./.github/dotnet.json
+
+      - name: ✍ pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          base: main
+          branch: which-dotnet
+          delete-branch: true
+          labels: dependencies
+          title: "⚙ Update dotnet versions"
+          body: "Update dotnet versions"
+          commit-message: "Update dotnet versions"
