@@ -1,4 +1,4 @@
-﻿name: dotnet-env
+﻿name: which-dotnet
 on:
   workflow_dispatch:
   push:
