@@ -3,7 +3,7 @@ using System;
 using Devlooped;
 using Spectre.Console.Cli;
 
-var app = new CommandApp();
+var app = new CommandApp<WhichCommand>();
 
 app.Configure(config =>
 {
@@ -12,7 +12,7 @@ app.Configure(config =>
     else
         config.SetApplicationName(ThisAssembly.Project.ToolCommandName);
 
-    config.AddCommand<InitCommand>("init");
+    //config.AddCommand<WhichCommand>("init");
     config.AddCommand<WorkflowCommand>("workflow");
 
     // Allows emitting help markdown on build
