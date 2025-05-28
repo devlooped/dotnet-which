@@ -18,16 +18,19 @@ action.
 <!-- include src/dotnet-env/Docs/help.md -->
 ```shell
 > dotnet env --help
+DESCRIPTION:
+Discovers .NET versions used in the current directory recursively
+
 USAGE:
-    dotnet env [OPTIONS] <COMMAND>
+    dotnet env [OPTIONS] [COMMAND]
 
 OPTIONS:
-    -h, --help    Prints help information
+    -h, --help             Prints help information                              
+    -o, --output [FILE]    Whether to write versions to an output file. File    
+                           path defaults to ./.github/dotnet.json               
 
 COMMANDS:
-    init        Discovers .NET versions used in the current directory           
-                recursively and emits a versions file                           
-    workflow    Creates a GitHub Actions workflow file for dotnet-env           
+    workflow    Creates a GitHub Actions workflow file for dotnet-env
 ```
 
 <!-- src/dotnet-env/Docs/help.md -->
@@ -42,8 +45,8 @@ USAGE:
     dotnet env workflow [file] [OPTIONS]
 
 ARGUMENTS:
-    [file]    Optional relative path to the versions file to use. If not        
-              specified, the default is `./.github/dotnet.json`                 
+    [file]    Path to the versions file to use in the workflow. Defaults to     
+              ./.github/dotnet.json                                             
 
 OPTIONS:
     -h, --help    Prints help information
